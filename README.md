@@ -1,0 +1,2 @@
+# HTMLResources
+Host html resources

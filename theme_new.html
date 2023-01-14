@@ -2687,6 +2687,9 @@ margin-left:40px
       body#layout .hamburger-menu {
         display: none;
       }
+      #blogTitle a, #blogTitle a:hover, #blogTitle a:visited {
+         color: #ffffff;
+       }
       ]]>
     </b:template-skin>
 
@@ -2882,7 +2885,19 @@ margin-left:40px
         <b:includable id='title'>
           <div>
             <b:class cond='data:this.imagePlacement == &quot;REPLACE&quot;' name='replaced'/>
-            <b:include name='super.title'/>
+                                <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                        <h2 id='blogTitle'>
+                            <a expr:href='data:blog.homepageUrl'>
+                                <data:blog.title/>
+                            </a>
+                        </h2>
+                        <b:else/>
+                        <h1>
+                            <a expr:href='data:blog.homepageUrl'>
+                                <data:blog.title/>
+                            </a>
+                        </h1>
+                    </b:if>
           </div>
         </b:includable>
       </b:defaultmarkup>
@@ -3037,11 +3052,11 @@ margin-left:40px
 
                 <div class='blog-name container'>
                   <b:section class='container' id='header' name='Header' showaddelement='false'>
-                    <b:widget id='Header1' locked='true' title='TradeAnalysiz (Header)' type='Header' visible='true'>
+                    <b:widget id='Header1' locked='true' title='TradeSignalFx (Header)' type='Header' visible='true'>
                       <b:widget-settings>
                         <b:widget-setting name='displayUrl'/>
                         <b:widget-setting name='displayHeight'>0</b:widget-setting>
-                        <b:widget-setting name='sectionWidth'>579</b:widget-setting>
+                        <b:widget-setting name='sectionWidth'>-1</b:widget-setting>
                         <b:widget-setting name='useImage'>false</b:widget-setting>
                         <b:widget-setting name='shrinkToFit'>false</b:widget-setting>
                         <b:widget-setting name='imagePlacement'>BEHIND</b:widget-setting>
@@ -3080,7 +3095,19 @@ margin-left:40px
                       <b:includable id='title'>
           <div>
             <b:class cond='data:this.imagePlacement == &quot;REPLACE&quot;' name='replaced'/>
-            <b:include name='super.title'/>
+                                <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                        <h2 id='blogTitle'>
+                            <a expr:href='data:blog.homepageUrl'>
+                                <data:blog.title/>
+                            </a>
+                        </h2>
+                        <b:else/>
+                        <h1>
+                            <a expr:href='data:blog.homepageUrl'>
+                                <data:blog.title/>
+                            </a>
+                        </h1>
+                    </b:if>
           </div>
         </b:includable>
                     </b:widget>
@@ -3101,7 +3128,7 @@ margin-left:40px
                     <b:section class='clearboth' id='page_list_top' name='Page List (Top)' showaddelement='false'>
                       <b:widget cond='!data:view.isPost' id='PageList1' locked='true' title='' type='PageList' visible='true'>
                         <b:widget-settings>
-                          <b:widget-setting name='pageListJson'><![CDATA[{"4817116365949102627":{"href":"https://www.tradeanalysiz.com/p/contact-us_11.html","position":1,"title":"Contact Us "},"link0":{"href":"https://tradeanalysiz.blogspot.com/p/charts.html","position":0,"title":"Chart"}}]]></b:widget-setting>
+                          <b:widget-setting name='pageListJson'><![CDATA[{"link0":{"href":"https://tradeanalysiz.blogspot.com/p/charts.html","position":0,"title":"Chart"}}]]></b:widget-setting>
                           <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                         </b:widget-settings>
                         <b:includable id='main'>
@@ -3475,12 +3502,12 @@ margin-left:40px
                   <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
                     <b:widget-settings>
                       <b:widget-setting name='showDateHeader'>false</b:widget-setting>
-                      <b:widget-setting name='style.textcolor'>#2196f3</b:widget-setting>
+                      <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
                       <b:widget-setting name='showShareButtons'>true</b:widget-setting>
                       <b:widget-setting name='showCommentLink'>true</b:widget-setting>
-                      <b:widget-setting name='style.urlcolor'>#212121</b:widget-setting>
+                      <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
                       <b:widget-setting name='showAuthor'>false</b:widget-setting>
-                      <b:widget-setting name='style.linkcolor'>#757575</b:widget-setting>
+                      <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
                       <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
                       <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
                       <b:widget-setting name='timestampLabel'>-</b:widget-setting>
@@ -3991,13 +4018,23 @@ margin-left:40px
                     <b:includable id='postTitle' var='post'>
   <a expr:name='data:post.id'/>
   <b:if cond='data:post.title != &quot;&quot;'>
-    <h3 class='post-title entry-title'>
+    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+    <h1 class='post-title entry-title'>
+      <b:if cond='data:post.link or (data:post.url and data:view.url != data:post.url)'>
+        <a expr:href='data:post.link ?: data:post.url'><data:post.title/></a>
+      <b:else/>
+        <data:post.title/>
+      </b:if>
+    </h1>
+      <b:else/>
+      <h3 class='post-title entry-title'>
       <b:if cond='data:post.link or (data:post.url and data:view.url != data:post.url)'>
         <a expr:href='data:post.link ?: data:post.url'><data:post.title/></a>
       <b:else/>
         <data:post.title/>
       </b:if>
     </h3>
+   </b:if>
   </b:if>
 </b:includable>
                     <b:includable id='previousPageLink'><b:comment>Don&#39;t show</b:comment></b:includable>
@@ -4100,7 +4137,7 @@ margin-left:40px
   </section>
 </b:includable>
                   </b:widget>
-                  <b:widget id='HTML2' locked='false' title='Disqus' type='HTML' visible='true'>
+                  <b:widget id='HTML2' locked='false' title='Disqus' type='HTML' version='2' visible='true'>
                     <b:widget-settings>
                       <b:widget-setting name='content'><![CDATA[<!-- Disqus Widget -->]]></b:widget-setting>
                     </b:widget-settings>
@@ -4851,7 +4888,7 @@ bloggerjs.src = &#39;//&#39; + disqus_shortname + &#39;.disqus.com/blogger_index
         </b:widget>
         <b:widget id='PageList2' locked='false' title='Pages' type='PageList' visible='false'>
           <b:widget-settings>
-            <b:widget-setting name='pageListJson'><![CDATA[{"7519184852235150841":{"href":"https://www.tradeanalysiz.com/p/discla.html","position":2,"title":"Disclaimer"},"3142517975528201283":{"href":"https://www.tradeanalysiz.com/p/about-us.html","position":0,"title":"About Us: Our Story TradeAnalysiz"},"3170752907298619846":{"href":"https://www.tradeanalysiz.com/p/privacy-policy.html","position":1,"title":"Privacy Policy"}}]]></b:widget-setting>
+            <b:widget-setting name='pageListJson'>{}</b:widget-setting>
             <b:widget-setting name='homeTitle'>Home</b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
